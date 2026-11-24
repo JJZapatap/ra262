@@ -1,0 +1,250 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Realidad Aumentada · Galería de recursos digitales · Universidad del Magdalena</title>
+<meta name="description" content="Galería de recursos digitales de la asignatura Realidad Aumentada, Licenciatura en Tecnologías, Universidad del Magdalena.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Unbounded:wght@500;700&family=Outfit:wght@300;400;600&display=swap" rel="stylesheet">
+<style>
+:root{
+  --bg:#04061a; --panel:#0b1030; --panel2:#111a45;
+  --cyan:#27e6ff; --violet:#9b6bff; --pink:#ff3ea5;
+  --text:#e8ecff; --muted:#93a0d4; --line:rgba(120,150,255,.22);
+  --display:'Unbounded','Trebuchet MS',sans-serif; --body:'Outfit','Segoe UI',sans-serif;
+}
+*{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth}
+body{background:var(--bg);color:var(--text);font-family:var(--body);font-size:17px;line-height:1.6;overflow-x:hidden}
+#bg{position:fixed;inset:0;width:100%;height:100%;z-index:-1}
+a{color:inherit}
+:focus-visible{outline:2px solid var(--cyan);outline-offset:3px}
+
+/* Barra superior */
+.top{display:flex;align-items:center;justify-content:space-between;gap:16px;padding:14px clamp(16px,5vw,64px);border-bottom:1px solid var(--line);background:rgba(4,6,26,.65);backdrop-filter:blur(10px);position:sticky;top:0;z-index:5}
+.brand{display:flex;align-items:center;gap:12px;text-decoration:none}
+.logo{height:44px;width:auto;display:block}
+.logo-fallback{display:none;width:44px;height:44px;border-radius:12px;border:1.5px solid var(--cyan);place-items:center;font-family:var(--display);font-size:13px;color:var(--cyan)}
+.brand b{font-family:var(--display);font-weight:500;font-size:13px;line-height:1.25;letter-spacing:.02em}
+.brand span{display:block;font-family:var(--body);font-weight:300;font-size:12.5px;color:var(--muted)}
+.top nav a{font-size:15px;text-decoration:none;color:var(--muted);margin-left:22px}
+.top nav a:hover{color:var(--cyan)}
+
+/* Hero */
+.hero{position:relative;min-height:88vh;display:grid;grid-template-columns:1.15fr .85fr;align-items:center;gap:24px;padding:clamp(40px,8vw,96px) clamp(16px,5vw,64px);overflow:hidden}
+.floor{position:absolute;left:-20%;right:-20%;bottom:-8%;height:55%;background:
+  linear-gradient(var(--line) 1px,transparent 1px) 0 0/100% 48px,
+  linear-gradient(90deg,var(--line) 1px,transparent 1px) 0 0/64px 100%;
+  transform:perspective(500px) rotateX(62deg);transform-origin:bottom;
+  -webkit-mask-image:linear-gradient(to top,#000 20%,transparent 95%);mask-image:linear-gradient(to top,#000 20%,transparent 95%);
+  animation:slide 3s linear infinite;z-index:0}
+@keyframes slide{to{background-position:0 48px,64px 0}}
+.hero-text{position:relative;z-index:1}
+.chips{display:flex;flex-wrap:wrap;gap:8px;margin-bottom:22px}
+.chip{display:inline-flex;align-items:center;gap:7px;padding:5px 13px 5px 9px;border:1px solid var(--line);border-radius:99px;background:rgba(17,26,69,.6);font-size:14px;color:var(--muted)}
+.chip svg{width:18px;height:18px}
+h1{font-family:var(--display);font-weight:700;font-size:clamp(34px,6.2vw,76px);line-height:1.04;letter-spacing:-.02em;text-wrap:balance}
+h1 .glow{background:linear-gradient(95deg,var(--cyan),var(--violet) 60%,var(--pink));-webkit-background-clip:text;background-clip:text;color:transparent;display:block}
+.lead{max-width:56ch;margin-top:22px;color:var(--muted);font-size:clamp(16px,1.6vw,19px)}
+.teacher{display:inline-flex;align-items:center;gap:14px;margin-top:30px;padding:12px 20px 12px 14px;border:1px solid var(--line);border-radius:16px;background:rgba(11,16,48,.7)}
+.teacher svg{width:38px;height:38px;flex:none}
+.teacher small{display:block;color:var(--muted);font-size:13px;line-height:1.2}
+.teacher strong{font-weight:600;font-size:17px}
+.hero-viz{position:relative;z-index:1;display:grid;place-items:center}
+#cube{width:min(100%,440px);aspect-ratio:1;filter:drop-shadow(0 0 28px rgba(39,230,255,.35))}
+
+/* Galería */
+section.gallery{padding:clamp(48px,7vw,88px) clamp(16px,5vw,64px)}
+.sec-head{max-width:1200px;margin:0 auto 36px;display:flex;align-items:end;justify-content:space-between;gap:20px;flex-wrap:wrap}
+.sec-head h2{font-family:var(--display);font-weight:500;font-size:clamp(24px,3.4vw,38px);letter-spacing:-.01em}
+.sec-head p{color:var(--muted);max-width:46ch}
+.grid{max-width:1200px;margin:0 auto;display:grid;grid-template-columns:repeat(auto-fill,minmax(290px,1fr));gap:24px}
+.card{position:relative;display:flex;flex-direction:column;padding:26px;border-radius:22px;background:linear-gradient(160deg,var(--panel2),var(--panel) 55%);border:1px solid var(--line);transition:transform .25s,border-color .25s,box-shadow .25s}
+.card::before,.card::after{content:"";position:absolute;width:20px;height:20px;border:2px solid var(--cyan);opacity:.8}
+.card::before{top:12px;left:12px;border-right:0;border-bottom:0;border-radius:6px 0 0 0}
+.card::after{bottom:12px;right:12px;border-left:0;border-top:0;border-radius:0 0 6px 0}
+.card:hover{transform:translateY(-6px);border-color:var(--cyan);box-shadow:0 18px 50px -18px rgba(39,230,255,.45)}
+.ico{width:60px;height:60px;border-radius:16px;display:grid;place-items:center;margin-bottom:18px;background:radial-gradient(circle at 30% 25%,rgba(39,230,255,.28),rgba(155,107,255,.12));border:1px solid var(--line)}
+.ico svg{width:34px;height:34px}
+.card h3{font-family:var(--display);font-weight:500;font-size:20px;line-height:1.25;margin-bottom:10px}
+.card p{color:var(--muted);font-size:16px;flex:1}
+.team{margin:18px 0 22px;padding-top:14px;border-top:1px dashed var(--line);font-size:15.5px}
+.team small{display:block;color:var(--muted);font-size:13px}
+.team span{display:block;font-weight:600}
+.ra-btn{position:relative;overflow:hidden;display:flex;align-items:center;justify-content:center;gap:12px;padding:14px 18px;border-radius:14px;text-decoration:none;font-weight:600;font-size:16px;color:#02101c;background:linear-gradient(95deg,var(--cyan),#7aa8ff 55%,var(--violet));box-shadow:0 0 0 0 rgba(39,230,255,.6);animation:pulse 2.6s infinite}
+.ra-btn svg{width:26px;height:26px;flex:none}
+.ra-btn::after{content:"";position:absolute;left:0;right:0;height:3px;top:-4px;background:rgba(255,255,255,.9);box-shadow:0 0 14px 4px rgba(255,255,255,.6);opacity:0}
+.ra-btn:hover::after{opacity:1;animation:scan 1s linear infinite}
+.ra-btn:hover{filter:brightness(1.1)}
+@keyframes scan{from{top:-4px}to{top:100%}}
+@keyframes pulse{70%{box-shadow:0 0 0 12px rgba(39,230,255,0)}100%{box-shadow:0 0 0 0 rgba(39,230,255,0)}}
+.card.empty{background:transparent;border:1.5px dashed var(--line)}
+.card.empty:hover{transform:none;box-shadow:none;border-color:var(--violet)}
+.card.empty .ico{background:transparent;border-style:dashed}
+.card.empty h3{color:var(--muted)}
+.ra-btn.off{background:transparent;color:var(--muted);border:1px dashed var(--line);animation:none;pointer-events:none}
+
+footer{border-top:1px solid var(--line);padding:32px clamp(16px,5vw,64px);display:flex;align-items:center;justify-content:space-between;gap:18px;flex-wrap:wrap;color:var(--muted);font-size:15px;background:rgba(4,6,26,.7)}
+footer .brand b{font-size:12px}
+
+@media (max-width:860px){
+  .hero{grid-template-columns:1fr;min-height:auto}
+  .hero-viz{order:-1}#cube{width:min(70%,300px)}
+  .top nav{display:none}
+}
+@media (prefers-reduced-motion:reduce){.floor,.ra-btn{animation:none}.card{transition:none}}
+</style>
+</head>
+<body>
+<canvas id="bg" aria-hidden="true"></canvas>
+
+<!-- Iconos SVG reutilizables -->
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <defs>
+    <linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#27e6ff"/><stop offset="1" stop-color="#9b6bff"/></linearGradient>
+    <!-- Cubo 3D -->
+    <symbol id="i-cube" viewBox="0 0 48 48" fill="none" stroke="url(#g)" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"><path d="M24 4 41 13.5v21L24 44 7 34.5v-21L24 4Z"/><path d="M7 13.5 24 23l17-9.5M24 23v21"/></symbol>
+    <!-- Gafas VR -->
+    <symbol id="i-vr" viewBox="0 0 48 48" fill="none" stroke="url(#g)" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"><path d="M6 15h36a2 2 0 0 1 2 2v13a4 4 0 0 1-4 4h-6.5a4 4 0 0 1-3.4-1.9L29 29.5a6 6 0 0 0-10 0l-2.1 2.6a4 4 0 0 1-3.4 1.9H8a4 4 0 0 1-4-4V17a2 2 0 0 1 2-2Z"/><circle cx="14.5" cy="23.5" r="2.2"/><circle cx="33.5" cy="23.5" r="2.2"/></symbol>
+    <!-- Móvil con RA -->
+    <symbol id="i-phone" viewBox="0 0 48 48" fill="none" stroke="url(#g)" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round"><rect x="13" y="4" width="22" height="40" rx="4"/><path d="M22 39h4"/><path d="M24 14l6 3.5v7L24 28l-6-3.5v-7L24 14Z"/><path d="M18 17.5l6 3.5 6-3.5M24 21v7"/></symbol>
+    <!-- Visor / escáner RA -->
+    <symbol id="i-scan" viewBox="0 0 32 32" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11V7a3 3 0 0 1 3-3h4M21 4h4a3 3 0 0 1 3 3v4M28 21v4a3 3 0 0 1-3 3h-4M11 28H7a3 3 0 0 1-3-3v-4"/><path d="M16 9l6 3.4v7.2L16 23l-6-3.4v-7.2L16 9Z"/><path d="M10 12.4l6 3.5 6-3.5M16 16v7"/></symbol>
+    <!-- Hologramas / malla -->
+    <symbol id="i-mesh" viewBox="0 0 48 48" fill="none" stroke="url(#g)" stroke-width="2.2" stroke-linejoin="round" stroke-linecap="round"><ellipse cx="24" cy="38" rx="16" ry="5"/><path d="M8 38V20M40 38V20"/><ellipse cx="24" cy="20" rx="16" ry="5"/><path d="M24 15V6M18 9l6-4 6 4"/></symbol>
+  </defs>
+</svg>
+
+<header class="top">
+  <a class="brand" href="#inicio">
+    <img class="logo" src="logo-unimagdalena.png" alt="Logo Universidad del Magdalena" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
+    <span class="logo-fallback">UM</span>
+    <b>Universidad del Magdalena<span>Licenciatura en Tecnologías</span></b>
+  </a>
+  <nav><a href="#trabajos">Trabajos</a><a href="#inicio">Asignatura</a></nav>
+</header>
+
+<main id="inicio">
+  <div class="hero">
+    <div class="floor" aria-hidden="true"></div>
+    <div class="hero-text">
+      <div class="chips" aria-label="Tecnologías inmersivas">
+        <span class="chip"><svg><use href="#i-scan" style="color:#27e6ff"/></svg>Realidad Aumentada</span>
+        <span class="chip"><svg><use href="#i-vr"/></svg>Realidad Virtual</span>
+        <span class="chip"><svg><use href="#i-mesh"/></svg>Realidad Mixta</span>
+        <span class="chip"><svg><use href="#i-phone"/></svg>WebXR</span>
+      </div>
+      <h1>Realidad Aumentada <span class="glow">Galería de recursos digitales</span></h1>
+      <p class="lead">Aplicaciones y experiencias inmersivas creadas por los estudiantes del Programa de Licenciatura en Tecnologías. Abre cada tarjeta, apunta la cámara y mira cómo lo digital se mezcla con tu entorno.</p>
+      <div class="teacher">
+        <svg viewBox="0 0 48 48"><use href="#i-cube"/></svg>
+        <div><small>Asignatura orientada por el profesor</small><strong>Ing. Mg. José Javier Zapata Polo</strong></div>
+      </div>
+    </div>
+    <div class="hero-viz"><canvas id="cube" width="520" height="520" aria-label="Cubo 3D animado"></canvas></div>
+  </div>
+
+  <section class="gallery" id="trabajos">
+    <div class="sec-head">
+      <h2>Trabajos de los estudiantes</h2>
+      <p>Cada tarjeta abre una experiencia web. Usa un celular con cámara para vivir la RA completa.</p>
+    </div>
+    <div class="grid" id="grid"></div>
+  </section>
+</main>
+
+<footer>
+  <a class="brand" href="#inicio">
+    <img class="logo" src="logo-unimagdalena.png" alt="" onerror="this.style.display='none';this.nextElementSibling.style.display='grid'">
+    <span class="logo-fallback">UM</span>
+    <b>Universidad del Magdalena<span>Santa Marta, Colombia</span></b>
+  </a>
+  <span>Realidad Aumentada · Prof. Ing. Mg. José Javier Zapata Polo</span>
+</footer>
+
+<script>
+/* ====== DATOS: edita aquí títulos, descripciones y enlaces ====== */
+const TRABAJOS = [
+  { titulo:"Tecno Lab", desc:"Laboratorio tecnológico interactivo que lleva conceptos de tecnología al espacio real mediante realidad aumentada.",
+    integrantes:["Jeniffer Andrea Fuenmayor Díaz"], url:"https://fuenmayor-tech.github.io/--TECNO-LAB/", icono:"i-cube" },
+  { titulo:"Electro Lab 3D", desc:"Laboratorio de electrónica en 3D: componentes y circuitos que se pueden explorar y observar en RA.",
+    integrantes:["Daniel Galezo Acuña"], url:"https://loul9.github.io/electro_lab_3dv2/", icono:"i-mesh" },
+  { titulo:"Electro Lab 3D", desc:"Laboratorio de electrónica en 3D: componentes y circuitos que se pueden explorar y observar en RA.",
+    integrantes:["Sebastián Andrés Mendoza De la Cruz"], url:"https://loul9.github.io/electro_lab_3dv2/", icono:"i-mesh" },
+  { titulo:"Por publicar", desc:"Este espacio está reservado para el trabajo de la estudiante. Pronto tendrá su experiencia de RA.",
+    integrantes:["María Paula Mendoza Espinosa"], url:"", icono:"i-vr" },
+  { titulo:"RA 10", desc:"Experiencia de realidad aumentada que superpone contenido digital sobre el entorno a través de la cámara.",
+    integrantes:["Stephany Carolina Ramírez Macías"], url:"https://stephanycrm.github.io/ra10/", icono:"i-phone" },
+  { titulo:"CodeMotion", desc:"Conceptos de programación y movimiento convertidos en animaciones 3D para ver en realidad aumentada.",
+    integrantes:["Juan Angel Torres Mercado"], url:"https://junaangeln1.github.io/CodeMotion/", icono:"i-cube" }
+];
+
+const grid = document.getElementById('grid');
+TRABAJOS.forEach(t=>{
+  const vacio = !t.url;
+  const c = document.createElement('article');
+  c.className = 'card' + (vacio ? ' empty' : '');
+  const quien = t.integrantes.length>1 ? 'Integrantes' : 'Integrante';
+  c.innerHTML = `
+    <div class="ico"><svg><use href="#${t.icono}"/></svg></div>
+    <h3></h3><p></p>
+    <div class="team"><small>${quien}</small>${t.integrantes.map(n=>`<span></span>`).join('')}</div>
+    ${vacio
+      ? `<span class="ra-btn off" aria-disabled="true"><svg><use href="#i-scan"/></svg>Próximamente</span>`
+      : `<a class="ra-btn" target="_blank" rel="noopener"><svg><use href="#i-scan"/></svg>Lanzar experiencia RA</a>`}`;
+  c.querySelector('h3').textContent = t.titulo;
+  c.querySelector('p').textContent = t.desc;
+  c.querySelectorAll('.team span').forEach((s,i)=>s.textContent=t.integrantes[i]);
+  if(!vacio) c.querySelector('a').href = t.url;
+  grid.appendChild(c);
+});
+
+/* ====== Fondo: red de partículas holográficas ====== */
+const reduce = matchMedia('(prefers-reduced-motion: reduce)').matches;
+const bg = document.getElementById('bg'), bx = bg.getContext('2d');
+let W,H,P=[];
+function size(){W=bg.width=innerWidth;H=bg.height=innerHeight;
+  P=Array.from({length:Math.min(90,Math.floor(W*H/18000))},()=>({x:Math.random()*W,y:Math.random()*H,vx:(Math.random()-.5)*.3,vy:(Math.random()-.5)*.3}));}
+function frameBg(){
+  bx.clearRect(0,0,W,H);
+  const g=bx.createRadialGradient(W*.75,H*.1,0,W*.75,H*.1,W*.8);
+  g.addColorStop(0,'rgba(120,70,255,.28)');g.addColorStop(.5,'rgba(20,40,120,.12)');g.addColorStop(1,'rgba(4,6,26,0)');
+  bx.fillStyle=g;bx.fillRect(0,0,W,H);
+  for(const p of P){
+    if(!reduce){p.x+=p.vx;p.y+=p.vy;if(p.x<0||p.x>W)p.vx*=-1;if(p.y<0||p.y>H)p.vy*=-1;}
+    bx.fillStyle='rgba(39,230,255,.8)';bx.fillRect(p.x,p.y,2,2);
+  }
+  for(let i=0;i<P.length;i++)for(let j=i+1;j<P.length;j++){
+    const d=Math.hypot(P[i].x-P[j].x,P[i].y-P[j].y);
+    if(d<130){bx.strokeStyle=`rgba(120,150,255,${.22*(1-d/130)})`;bx.beginPath();bx.moveTo(P[i].x,P[i].y);bx.lineTo(P[j].x,P[j].y);bx.stroke();}
+  }
+  if(!reduce) requestAnimationFrame(frameBg);
+}
+addEventListener('resize',()=>{size();if(reduce)frameBg()});size();frameBg();
+
+/* ====== Cubo holográfico 3D (hero) ====== */
+const cv=document.getElementById('cube'),cx=cv.getContext('2d');
+const V=[[-1,-1,-1],[1,-1,-1],[1,1,-1],[-1,1,-1],[-1,-1,1],[1,-1,1],[1,1,1],[-1,1,1]];
+const E=[[0,1],[1,2],[2,3],[3,0],[4,5],[5,6],[6,7],[7,4],[0,4],[1,5],[2,6],[3,7]];
+let a=.6,b=.4;
+function rot(v,ax,ay){let[x,y,z]=v;let c=Math.cos(ay),s=Math.sin(ay);[x,z]=[x*c+z*s,-x*s+z*c];c=Math.cos(ax);s=Math.sin(ax);[y,z]=[y*c-z*s,y*s+z*c];return[x,y,z];}
+function proj(v,k,R){const f=3.2/(3.2+v[2]*k);return[260+v[0]*k*R*f,260+v[1]*k*R*f];}
+function drawCube(){
+  cx.clearRect(0,0,520,520);
+  [[1,150,'#27e6ff',2.4],[.55,150,'#9b6bff',1.4]].forEach(([k,R,col,lw])=>{
+    const pts=V.map(v=>proj(rot(v,a,b),k,R*.62/k*k));
+    cx.strokeStyle=col;cx.lineWidth=lw;cx.shadowColor=col;cx.shadowBlur=14;
+    E.forEach(([i,j])=>{cx.beginPath();cx.moveTo(...pts[i]);cx.lineTo(...pts[j]);cx.stroke();});
+    cx.fillStyle=col;pts.forEach(p=>{cx.beginPath();cx.arc(p[0],p[1],k===1?4:3,0,7);cx.fill();});
+  });
+  cx.shadowBlur=0;
+  cx.strokeStyle='rgba(39,230,255,.25)';cx.lineWidth=1.5;
+  for(let i=0;i<3;i++){cx.beginPath();cx.ellipse(260,440,90+i*38,22+i*9,0,0,7);cx.stroke();}
+  if(!reduce){a+=.008;b+=.012;requestAnimationFrame(drawCube);}
+}
+drawCube();
+</script>
+</body>
+</html>
